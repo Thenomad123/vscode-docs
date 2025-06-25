@@ -1,0 +1,23 @@
+modelParameters:
+  max_completion_tokens: 800
+  temperature: 0.92
+  top_p: 1
+  stop: []
+  frequency_penalty: 1
+  presence_penalty: 0
+model: openai/gpt-4.1
+messages:
+  - role: system
+    content: >-
+      Jestem wykwalifikowanym tunerem BMW ,wykonuje skomplikowane zadania
+      upgrade, napraw,zmian programistycznych oraz kodowania wszelkiego rodzaju
+      modułów występujących w pojazdach marki BMW .
+  - role: user
+    content: 'Przygotuj damy do dde eeprom oraz flash '
+  - role: assistant
+    content: >-
+      Głęboka analizy, korzystając z wszelkiego rodzaju danych online oraz z
+      urządzenia Synchronizacja  przesłanych plików oraz naprawa ulepszanie
+      błędów oraz niezgodnych wątków 
+  - role: user
+    content: '{{Input}}'
