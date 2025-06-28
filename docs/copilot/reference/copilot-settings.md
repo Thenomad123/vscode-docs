@@ -1,6 +1,6 @@
 ---
 ContentId: 7b232695-cbbe-4f3f-a625-abc7a5e6496c
-DateApproved: 05/08/2025
+DateApproved: 06/12/2025
 MetaDescription: Overview of the configuration settings for GitHub Copilot in Visual Studio Code.
 MetaSocialImage: ../images/shared/github-copilot-social.png
 ---
@@ -11,7 +11,7 @@ This article lists the configuration settings for GitHub Copilot in Visual Studi
 > [!TIP]
 > If you don't yet have a Copilot subscription, you can use Copilot for free by signing up for the [Copilot Free plan](https://github.com/github-copilot/signup) and get a monthly limit of completions and chat interactions.
 
-The team is continuously working on improving Copilot in VS Code and adding new features. Some features are still experimental. Try them out and share your feedback in [our issues](https://github.com/microsoft/vscode-copilot-release/issues). Get more info about the [feature lifecycle in VS Code](/docs/configure/settings.md#feature-lifecycle).
+The team is continuously working on improving Copilot in VS Code and adding new features. Some features are still experimental. Try them out and share your feedback in [our issues](https://github.com/microsoft/vscode/issues). Get more info about the [feature lifecycle in VS Code](/docs/configure/settings.md#feature-lifecycle).
 
 ## General settings
 
@@ -19,14 +19,14 @@ The team is continuously working on improving Copilot in VS Code and adding new 
 * `setting(github.copilot.renameSuggestions.triggerAutomatically)`: Controls whether Copilot generates suggestions for renaming.
 * `setting(chat.commandCenter.enabled)`: Controls whether to show the Copilot menu in the VS Code title bar (default: `true`).
 * `setting(workbench.commandPalette.experimental.askChatLocation)` _(Experimental)_: Controls where the Command Palette should ask chat questions.
-* `setting(github.copilot.chat.search.semanticTextResults)` _(Experimental)_: Enables semantic search results in the Search view.
-* `setting(chat.setupFromDialog)` _(Experimental)_: Controls whether to show the Copilot setup dialog when starting a chat session.
-* `setting(github.copilot.suggestSettings)`: Controls whether to show suggestions in the Settings editor.
+* `setting(search.searchView.semanticSearchBehavior)` _(Preview)_: Configure when to run semantic search in the Search view: manually (default), when no text search results are found, or always.
+* `setting(search.searchView.keywordSuggestions)` _(Preview)_: Controls whether to show keyword suggestions in the Search view. This setting is disabled by default.
+* `setting(workbench.settings.showAISearchToggle)` _(Experimental)_: Enable searching settings with AI in the Settings editor. This setting is enabled by default.
 
 ## Code completion settings
 
 * `setting(github.copilot.enable)`: Enable or disable Copilot completions for specified [languages](/docs/languages/identifiers.md).
-* `setting(github.copilot.nextEditSuggestions.enabled)`: Enables Copilot Next Edit Suggestions (Copilot NES).
+* `setting(github.copilot.nextEditSuggestions.enabled)`: Enables Copilot next edit suggestions (Copilot NES).
 * `setting(editor.inlineSuggest.edits.allowCodeShifting)`: Configure if Copilot NES is able to shift your code to show a suggestion.
 * `setting(editor.inlineSuggest.edits.renderSideBySide)`: Configure if Copilot NES can show larger suggestions side-by-side if possible, or if Copilot NES should always show larger suggestions below the relevant code.
 
@@ -71,7 +71,7 @@ The team is continuously working on improving Copilot in VS Code and adding new 
 * `setting(editor.inlineSuggest.syntaxHighlightingEnabled)`: Controls whether to show syntax highlighting for inline suggestions.
 * `setting(github.copilot.chat.editor.temporalContext.enabled)` _(Experimental)_: Whether to include recently viewed and edited files with Copilot requests in Inline Chat.
 
-## Customize Copilot prompts
+## Customize chat
 
 * `setting(github.copilot.chat.codeGeneration.useInstructionFiles)`: Controls whether code instructions from `.github/copilot-instructions.md` are added to Copilot requests.
 * `setting(github.copilot.chat.reviewSelection.enabled)` _(Preview)_: Enable code review for an editor text selection.
@@ -82,8 +82,9 @@ The team is continuously working on improving Copilot in VS Code and adding new 
 Copilot requests for reviewing the current editor selection.
 * `setting(github.copilot.chat.pullRequestDescriptionGeneration.instructions)` _(Experimental)_: A set of instructions that will be added to Copilot requests that generate pull request titles and descriptions.
 * `setting(chat.promptFiles)` _(Experimental)_: Enable or disable reusable prompt files.
-* `setting(chat.promptFilesLocations)` _(Experimental)_: Specify the location of prompt files. Set to `true` to use the default location (`.github/prompts`), or use the `{ "/path/to/folder": boolean }` notation to specify a different path. Relative paths are resolved from the root folder(s) of your workspace.
-* `setting(chat.instructionsFilesLocations)` _(Experimental)_: Specify the location of instructions files. Set to `true` to use the default location (`.github/instructions`), or use the `{ "/path/to/folder": boolean }` notation to specify a different path. Relative paths are resolved from the root folder(s) of your workspace.
+* `setting(chat.promptFilesLocations)` _(Experimental)_: A dictionary of folders where prompt files are located and a boolean indicating whether they are enabled. Relative paths are resolved from the root folder(s) of your workspace. Supports glob patterns for file paths.
+* `setting(chat.instructionsFilesLocations)` _(Experimental)_: A dictionary of folders where instructions files are located and a boolean indicating whether they are enabled. Relative paths are resolved from the root folder(s) of your workspace. Supports glob patterns for file paths.
+* `setting(chat.modeFilesLocations)` _(Experimental)_: A dictionary of folders where chat mode files are located and a boolean indicating whether they are enabled. Relative paths are resolved from the root folder(s) of your workspace. Supports glob patterns for file paths.
 
 ## Debugging settings
 

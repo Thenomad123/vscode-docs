@@ -1,13 +1,8 @@
 ---
-Order: 4
-Area: terminal
-TOCTitle: Shell Integration
 ContentId: a6a1652b-c0d8-4054-a2da-feb915eef2cc
-PageTitle: Terminal Shell Integration in Visual Studio Code
-DateApproved: 05/08/2025
+DateApproved: 06/12/2025
 MetaDescription: Visual Studio Code's embedded terminal can integrate with some shells to enhance the capabilities of the terminal.
 ---
-
 # Terminal Shell Integration
 
 Visual Studio Code has the ability to integrate with common shells, allowing the terminal to understand more about what's actually happening inside the shell. This additional information enables some useful features such as [working directory detection](#current-working-directory-detection) and command detection, [decorations](#command-decorations-and-the-overview-ruler), and [navigation](#command-navigation).
@@ -85,6 +80,16 @@ code --locate-shell-integration-path bash
 # Add the result of the above to the source statement:
 [[ "$TERM_PROGRAM" == "vscode" ]] && . "/path/to/shell/integration/script.sh"
 ```
+
+## Shell integration quality
+
+When using shell integration, it has a "quality" associated with it that declares the capabilities of it. These qualities are determined by how the shell integration script behaves.
+
+- **None**: No shell integration is active.
+- **Rich**: Shell integration is active and command detection is working in an ideal way.
+- **Basic**: Shell integration is active, but command detection might not support all functionality. For example, the command run location is detected, but not its exit status.
+
+To view the shell integration quality, hover the terminal tab. Optionally, select **Show Details** on the hover to view more detailed information.
 
 ## Command decorations and the overview ruler
 
@@ -196,7 +201,7 @@ The following keyboard shortcuts should work in PowerShell when shell integratio
 
 Experimental IntelliSense for PowerShell shows a completion list when typing in PowerShell, similar to the editor experience. Behind the scenes, this functionality is powered by the PowerShell session's native completion API, so context-aware completions like variables are available.
 
-![PowerShell IntelliSense shows completions like Get-Alias, Get-ChildItem, for example when typing Get-](images/shell-integration/pwsh-IntelliSense.png)
+![PowerShell IntelliSense shows completions like Get-Alias, Get-ChildItem, for example when typing Get-](images/shell-integration/pwsh-intellisense.png)
 
 You can enable the experimental IntelliSense for PowerShell with the `setting(terminal.integrated.suggest.enabled)` setting.
 
@@ -228,11 +233,11 @@ VS Code has a set of custom escape sequences designed to enable the shell integr
 
 These sequences should be ignored by other terminals, but unless other terminals end up adopting the sequences more widely, it's recommended to check that `$TERM_PROGRAM` is `vscode` before writing them.
 
-- `OSC 633 ; A ST` - Mark prompt start.
-- `OSC 633 ; B ST` - Mark prompt end.
-- `OSC 633 ; C ST` - Mark pre-execution.
-- `OSC 633 ; D [; <exitcode>] ST` - Mark execution finished with an optional exit code.
-- `OSC 633 ; E ; <commandline> [; <nonce] ST` - Explicitly set the command line with an optional nonce.
+- `OSC 633 ; A ST`: Mark prompt start.
+- `OSC 633 ; B ST`: Mark prompt end.
+- `OSC 633 ; C ST`: Mark pre-execution.
+- `OSC 633 ; D [; <exitcode>] ST`: Mark execution finished with an optional exit code.
+- `OSC 633 ; E ; <commandline> [; <nonce] ST`: Explicitly set the command line with an optional nonce.
 
   The E sequence allows the terminal to reliably get the exact command line interpreted by the shell. When this is not specified, the terminal may fallback to using the A, B and C sequences to get the command, or disable the detection all together if it's unreliable.
 
@@ -248,28 +253,30 @@ These sequences should be ignored by other terminals, but unless other terminals
   ";"  -> "\x3b"
   ```
 
-- `OSC 633 ; P ; <Property>=<Value> ST` - Set a property on the terminal, only known properties will be handled.
+- `OSC 633 ; P ; <Property>=<Value> ST`: Set a property on the terminal, only known properties will be handled.
 
   Known properties:
 
-  - `Cwd` - Reports the current working directory to the terminal.
-  - `IsWindows` - Indicates whether the terminal is using a Windows backend like winpty or conpty. This may be used to enable additional heuristics as the positioning of the shell integration sequences are not guaranteed to be correct. Valid values are `True` and `False`.
+  - `Cwd`: Reports the current working directory to the terminal.
+  - `IsWindows`: Indicates whether the terminal is using a Windows backend like winpty or conpty. This may be used to enable additional heuristics as the positioning of the shell integration sequences are not guaranteed to be correct. Valid values are `True` and `False`.
+  - `HasRichCommandDetection`: Indicates whether the terminal has rich command detection capabilities. This property is set to `True` when the shell integration script acts ideally as VS Code expects it, specifically sequences should come in the expected positions in the order `A, B, E, C, D`.
+
 
 ### Final Term shell integration
 
 VS Code supports Final Term's shell integration sequences, which allow non-VS Code shell integration scripts to work in VS Code. This results in a somewhat degraded experience as it doesn't support as many features as `OSC 633`. Here are the specific sequences that are supported:
 
-- `OSC 133 ; A ST` - Mark prompt start.
-- `OSC 133 ; B ST` - Mark prompt end.
-- `OSC 133 ; C ST` - Mark pre-execution.
-- `OSC 133 ; D [; <exitcode>] ST` - Mark execution finished with an optional exit code.
+- `OSC 133 ; A ST`: Mark prompt start.
+- `OSC 133 ; B ST`: Mark prompt end.
+- `OSC 133 ; C ST`: Mark pre-execution.
+- `OSC 133 ; D [; <exitcode>] ST`: Mark execution finished with an optional exit code.
 
 ### iTerm2 shell integration
 
 The following sequences that iTerm2 pioneered are supported:
 
-- `OSC 1337 ; CurrentDir=<Cwd> S` - Sets the current working directory of the terminal, similar to `OSC 633 ; P ; Cwd=<Cwd> ST`.
-- `OSC 1337 ; SetMark ST` - Adds a mark to the left of the line it was triggered on and also adds an annotation to the scroll bar:
+- `OSC 1337 ; CurrentDir=<Cwd> S`: Sets the current working directory of the terminal, similar to `OSC 633 ; P ; Cwd=<Cwd> ST`.
+- `OSC 1337 ; SetMark ST`: Adds a mark to the left of the line it was triggered on and also adds an annotation to the scroll bar:
 
     ![When the sequence is written to the terminal a small grey circle will appear to the left of the command, with a matching annotation in the scroll bar](images/shell-integration/setmark.png)
 

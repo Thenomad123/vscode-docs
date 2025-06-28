@@ -1,6 +1,6 @@
 ---
 ContentId: de6f9f68-7dd5-4de3-a210-3db57882384b
-DateApproved: 05/08/2025
+DateApproved: 06/12/2025
 MetaDescription: Get a quick overview of the GitHub Copilot features in Visual Studio Code. GitHub Copilot provides AI-powered features to help you write code faster and with less effort.
 MetaSocialImage: ../images/shared/github-copilot-social.png
 ---
@@ -13,7 +13,7 @@ You can access GitHub Copilot in VS Code through the Chat view, directly in the 
 > [!TIP]
 > If you don't yet have a Copilot subscription, you can use Copilot for free by signing up for the [Copilot Free plan](https://github.com/github-copilot/signup) and get a monthly limit of completions and chat interactions.
 
-The team is continuously working on improving Copilot in VS Code and adding new features. Some features are still experimental. Try them out and share your feedback in [our issues](https://github.com/microsoft/vscode-copilot-release/issues).
+The team is continuously working on improving Copilot in VS Code and adding new features. Some features are still experimental. Try them out and share your feedback in [our issues](https://github.com/microsoft/vscode/issues).
 
 ## Chat with GitHub Copilot
 
@@ -99,7 +99,7 @@ As you're coding in the editor, you can use Copilot to generate code completions
 |--------|-------------|
 | Code completions | Start typing in the editor and Copilot provides code suggestions that match your coding style and take your existing code into account. |
 | Code comments | Provide a code completion prompt to Copilot by writing instructions in a code comment.<br/>Example: `# write a calculator class with methods for add, subtract, and multiply. Use static methods.` |
-| Next Edit Suggestions | Predict your next code edit with Copilot Next Edit Suggestions. Enable Copilot NES with the `setting(github.copilot.nextEditSuggestions.enabled)` setting. Learn how to get started with [Copilot NES](/docs/copilot/ai-powered-suggestions.md#next-edit-suggestions). |
+| Next edit suggestions | Predict your next code edit with Copilot next edit suggestions. Enable Copilot NES with the `setting(github.copilot.nextEditSuggestions.enabled)` setting. Learn how to get started with [Copilot NES](/docs/copilot/ai-powered-suggestions.md#next-edit-suggestions). |
 | `kb(inlinechat.start)` | Start **Inline Chat** to send a chat request to Copilot directly from the editor. Use natural language or use `/` commands to give instructions to Copilot. |
 | `kb(editor.action.rename)` | Get AI-powered suggestions when renaming symbols in your code. |
 
